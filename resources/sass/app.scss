@@ -1,0 +1,96 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Custom styles
+$theme-colors: (
+    "custom-green-dark": #01554f,
+    "custom-green-mid": #009182,
+    "custom-green-light": #03aa99,         
+    "custom-green": #03665f,
+    "custom-green-txt": #01beb2,     // accent teal
+    "custom-green-muted": #b2dfdb,   // subtle background or border
+    "custom-green-hover": #019c90,   // for hover states
+    "custom-green-bg": #e0f2f1,      // pale background
+    "custom-gray": #f8f9fa,          // light gray neutral
+    "custom-gray-dark": #343a40,      // darker neutral
+    "custom-red": #ff0a05,           // error red
+);
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// Body styles
+.custom-hover {
+    transition: background-color 0.2s ease, color 0.2s ease; // smooth hover
+
+    &:hover,
+    &:focus {
+        background-color: #02b19f !important;
+        color: #fff !important;
+    }
+}
+
+//logout button styles
+.navbar-nav .dropdown-menu {
+    padding: 0; // remove padding so items occupy full menu
+    margin: 0;
+
+    .dropdown-item { 
+        padding: 0.7rem 1rem;
+
+        &:hover {
+            background-color: #bbeeea;
+            border-radius: 0.25rem;
+        }
+    }
+}
+
+//underline hover styles
+.underline:hover {
+    text-decoration: underline;
+}
+
+//table styles
+.clickable-row {
+    cursor: pointer;
+
+    &:hover {
+        filter: brightness(1.1);
+    }
+}
+
+//pagination styles
+.pagination {
+    justify-content: center; // center the buttons
+    margin-top: 1rem;
+
+    .page-item {
+        margin: 0 0.25rem;
+
+        .page-link {
+            background-color: #009182;  // your custom green
+            color: #fff;
+            border: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.25rem;
+
+            &:hover {
+                background-color: #02b19f; // slightly lighter on hover
+                color: #fff;
+            }
+        }
+
+        &.disabled .page-link {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+}
+
+//create/edit form styles
+input[type="file"].form-control::-webkit-file-upload-button {
+    display: none;
+}
