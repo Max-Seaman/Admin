@@ -54,13 +54,6 @@
                         </select>
                         <x-form-error :messages="$errors->get('company_id')" class="text-warning small" />
                     </div>
-
-                    {{-- Logo --}}
-                    <div class="col-md-6">
-                        <x-form-label for="logo">Logo</x-form-label>
-                        <x-form-input name="logo" type="file" class="form-control bg-custom-green-dark" />
-                        <x-form-error :messages="$errors->get('logo')" class="text-warning small" />
-                    </div>
                 </div>
 
                 {{-- Save button --}}

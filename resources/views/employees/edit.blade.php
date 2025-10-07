@@ -55,17 +55,11 @@
                         </select>
                         <x-form-error :messages="$errors->get('company_id')" class="text-warning small" />
                     </div>
-
-                    {{-- Logo --}}
-                    <div class="col-md-6">
-                        <x-form-label for="logo">Logo</x-form-label>
-                        <x-form-input name="logo" type="file" class="form-control bg-custom-green-dark" />
-                        <x-form-error :messages="$errors->get('logo')" class="text-warning small" />
-                    </div>
                 </div>
 
                 {{-- Save button --}}
-                <div class="d-flex justify-content-end mt-5">
+                <div class="d-flex justify-content-between mt-5">
+                    <x-button href="{{ route('employees.show', $employee->id) }}">Back</x-button>
                     <x-button type="submit">Update</x-button>
                 </div>
             </div>

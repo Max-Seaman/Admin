@@ -58,17 +58,9 @@ class EmployeeController extends Controller
             'email'      => 'nullable|email|max:255',
             'phone'      => 'nullable|string|max:25',
             'company_id' => 'required|exists:companies,id',
-            'logo'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        if ($request->hasFile('logo')) {
-            $logo = $request->file('logo');
-            $filename = time() . '_' . $logo->getClientOriginalName();
-            $logo->move(public_path('img'), $filename);
-            $validated['logo'] = 'img/' . $filename;
-        } else {
-            $validated['logo'] = 'img/default-employee.png';
-        }
+        $validated['logo'] = 'img/default-employee.png';
 
         Employee::create($validated);
 
@@ -92,24 +84,9 @@ class EmployeeController extends Controller
             'email'      => 'nullable|email|max:255',
             'phone'      => 'nullable|string|max:25',
             'company_id' => 'required|exists:companies,id',
-            'logo'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        if ($request->hasFile('logo')) {
-            $logo = $request->file('logo');
-            $filename = time() . '_' . $logo->getClientOriginalName();
-            $logo->move(public_path('img'), $filename);
-
-            // Delete old logo if exists and not default
-            if ($employee->logo && $employee->logo !== 'img/default-employee.png' && file_exists(public_path($employee->logo))) {
-                unlink(public_path($employee->logo));
-            }
-
-            $validated['logo'] = 'img/' . $filename;
-        } else {
-            // Keep current logo, or use default if none
-            $validated['logo'] = $employee->logo ?? 'img/default-employee.png';
-        }
+        $validated['logo'] ='img/default-employee.png';
 
         $employee->update($validated);
 
