@@ -84,9 +84,17 @@ class CompanyController extends Controller
 
         // Handle logo upload or default
         if ($request->hasFile('logo')) {
-            $validated['logo'] = $request->file('logo')->store('logos', 'public');
+            $logo = $request->file('logo');
+
+            // Generate unique file name
+            $filename = time() . '_' . $logo->getClientOriginalName();
+
+            // Move the file to public/img folder
+            $logo->move(public_path('img'), $filename);
+
+            $validated['logo'] = 'img/' . $filename;
         } else {
-            // Use your default logo (make sure this file exists in storage/app/public/logos/)
+            // Default logo in public/img
             $validated['logo'] = 'img/default-company.png';
         }
 
@@ -112,11 +120,24 @@ class CompanyController extends Controller
             'logo' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048|dimensions:min_width=100,min_height=100',
         ]);
 
-        // Handle logo upload or keep the same/default
+        // Handle logo upload
         if ($request->hasFile('logo')) {
-            $validated['logo'] = $request->file('logo')->store('logos', 'public');
+            $logo = $request->file('logo');
+
+            // Generate unique filename
+            $filename = time() . '_' . $logo->getClientOriginalName();
+
+            // Move to public/img
+            $logo->move(public_path('img'), $filename);
+
+            // Delete old logo if it exists and is not the default
+            if ($company->logo && $company->logo !== 'img/default-company.png' && file_exists(public_path($company->logo))) {
+                unlink(public_path($company->logo));
+            }
+
+            $validated['logo'] = 'img/' . $filename;
         } else {
-            // Keep current logo, or use public default if none exists
+            // Keep current logo, or default if none exists
             $validated['logo'] = $company->logo ?? 'img/default-company.png';
         }
 
